@@ -7,7 +7,7 @@
           th.agenda-table-head-check(v-if='pickerModeActive') &nbsp;
           th.agenda-table-head-time Time
           th.agenda-table-head-location(colspan='2') Location
-          th.agenda-table-head-event(colspan='2') {{ siteStore.viewport < 990 ? '' : 'Event' }}
+          th.agenda-table-head-event(colspan='2') {{ agendaStore.containerWidth < 990 ? '' : 'Event' }}
       tbody
         tr.agenda-table-display-noresult(
           v-if='!meetingEvents || meetingEvents.length < 1'
@@ -65,7 +65,7 @@
               span(v-else) {{item.room}}
             //- CELL - GROUP --------------------------
             td.agenda-table-cell-group(v-if='item.type === `regular`')
-              span.badge(v-if='agendaStore.areaIndicatorsShown && siteStore.viewport > 1200') {{item.groupAcronym}}
+              span.badge(v-if='agendaStore.areaIndicatorsShown && agendaStore.containerWidth > 1200') {{item.groupAcronym}}
               a.discreet(:href='`/group/` + item.acronym + `/about/`') {{item.acronym}}
             //- CELL - NAME ---------------------------
             td.agenda-table-cell-name
@@ -114,7 +114,7 @@
               template(v-else)
                 span.badge.is-cancelled(v-if='!isMobile && item.status === `canceled`') Cancelled
                 span.badge.is-rescheduled(v-else-if='!isMobile && item.status === `resched`') Rescheduled
-                .agenda-table-cell-links-buttons(v-else-if='siteStore.viewport < 1200 && item.links && item.links.length > 0')
+                .agenda-table-cell-links-buttons(v-else-if='agendaStore.containerWidth < 1200 && item.links && item.links.length > 0')
                   n-dropdown(
                     v-if='!agendaStore.colorPickerVisible'
                     trigger='click'
@@ -802,7 +802,7 @@ onBeforeUnmount(() => {
       border-right-color: #000;
     }
 
-    @media screen and (max-width: $bs5-break-md) {
+    @container (max-width: #{$bs5-break-md}) {
       font-size: .8em;
       padding: 0 6px;
     }
@@ -817,18 +817,18 @@ onBeforeUnmount(() => {
     &.agenda-table-head-time {
       width: 125px;
 
-      @media screen and (max-width: 1300px) {
+      @container (max-width: 1300px) {
         width: 100px;
       }
 
-      @media screen and (max-width: $bs5-break-md) {
+      @container (max-width: #{$bs5-break-md}) {
         width: 30px;
       }
     }
     &.agenda-table-head-location {
       width: 250px;
 
-      @media screen and (max-width: $bs5-break-md) {
+      @container (max-width: #{$bs5-break-md}) {
         width: auto;
       }
     }
@@ -890,7 +890,7 @@ onBeforeUnmount(() => {
       border-bottom-color: #000;
     }
 
-    @media screen and (max-width: $bs5-break-md) {
+    @container (max-width: #{$bs5-break-md}) {
       font-size: .9em;
     }
   }
@@ -907,7 +907,7 @@ onBeforeUnmount(() => {
       color: $blue-100;
     }
 
-    @media screen and (max-width: $bs5-break-md) {
+    @container (max-width: #{$bs5-break-md}) {
       padding: 0 6px;
     }
 
@@ -929,7 +929,7 @@ onBeforeUnmount(() => {
         color: $blue-200;
       }
 
-      @media screen and (max-width: $bs5-break-md) {
+      @container (max-width: #{$bs5-break-md}) {
         font-size: .9em;
       }
     }
@@ -944,7 +944,7 @@ onBeforeUnmount(() => {
       color: #FFF;
     }
 
-    @media screen and (max-width: $bs5-break-md) {
+    @container (max-width: #{$bs5-break-md}) {
       padding: 2px 6px;
     }
 
@@ -985,11 +985,11 @@ onBeforeUnmount(() => {
         border-right-color: $gray-700 !important;
       }
 
-      @media screen and (max-width: 1300px) {
+      @container (max-width: 1300px) {
         font-size: .85rem;
       }
 
-      @media screen and (max-width: $bs5-break-md) {
+      @container (max-width: #{$bs5-break-md}) {
         white-space: initial;
         word-wrap: break-word;
         max-width: 70px;
@@ -1017,7 +1017,7 @@ onBeforeUnmount(() => {
         border-bottom-left-radius: 0;
         margin-right: 6px;
 
-        @media screen and (max-width: $bs5-break-md) {
+        @container (max-width: #{$bs5-break-md}) {
           display: none;
         }
       }
@@ -1033,7 +1033,7 @@ onBeforeUnmount(() => {
         border-right-color: $gray-700 !important;
       }
 
-      @media screen and (max-width: $bs5-break-md) {
+      @container (max-width: #{$bs5-break-md}) {
         font-size: .7rem;
         word-break: break-all;
       }
@@ -1071,7 +1071,7 @@ onBeforeUnmount(() => {
     }
 
     &.agenda-table-cell-name {
-      @media screen and (max-width: $bs5-break-md) {
+      @container (max-width: #{$bs5-break-md}) {
         font-size: .7rem;
         word-break: break-word;
         word-wrap: break-word;
@@ -1096,13 +1096,13 @@ onBeforeUnmount(() => {
           }
         }
 
-        @media screen and (max-width: $bs5-break-md) {
+        @container (max-width: #{$bs5-break-md}) {
           margin: 2px 0 0 0;
         }
       }
 
       > .bi {
-        @media screen and (max-width: $bs5-break-md) {
+        @container (max-width: #{$bs5-break-md}) {
           display: none;
         }
 
@@ -1295,11 +1295,11 @@ onBeforeUnmount(() => {
       border-right-color: $gray-700 !important;
     }
 
-    @media screen and (max-width: 1300px) {
+    @container (max-width: 1300px) {
       font-size: .9rem;
     }
 
-    @media screen and (max-width: $bs5-break-md) {
+    @container (max-width: #{$bs5-break-md}) {
       font-size: .8rem;
     }
 
